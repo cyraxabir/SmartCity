@@ -1,6 +1,7 @@
 #include<Servo.h>
 int IRSensor1=A1;  //Value initialization of variables
 int IRSensor2=A2;
+int tempsensor=A4;
 int ldr=A5;
 int R1R=6;
 int R1G=7;
@@ -35,6 +36,7 @@ void setup()
   pinMode(R4G, OUTPUT);
   pinMode(Postled, OUTPUT);
   pinMode(PostGnd, OUTPUT);
+  pinMode(tempsensor,INPUT);
   pinMode(ldr, INPUT);
   pinMode(IRSensor1,INPUT);
   pinMode(IRSensor2,INPUT);
@@ -118,6 +120,7 @@ if (currentMillis - previousMillis >= interval) // traffic light state change's 
    
   }
   
+  temperature();
 
  
 }
@@ -187,4 +190,11 @@ void Low()
   digitalWrite(R4G,LOW);
   
 }
-    
+
+void temperature()
+    {
+      float t= analogRead(tempsensor);	//temperature calculator function
+      float celsius= t*0.49;
+      Serial.print(celsius);
+  	  Serial.println("*");
+    }
